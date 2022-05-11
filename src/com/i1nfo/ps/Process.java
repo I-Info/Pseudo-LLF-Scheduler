@@ -4,7 +4,13 @@ public class Process {
     private final long deadLine;
     private long requiredExecutionTime;
 
-    public Process(long requiredTime, long deadLine) {
+    private final String name;
+
+    private final int cycle;
+
+    public Process(String name, int cycle, long requiredTime, long deadLine) {
+        this.name = name;
+        this.cycle = cycle;
         this.requiredExecutionTime = requiredTime;
         this.deadLine = deadLine;
     }
@@ -17,6 +23,14 @@ public class Process {
         return deadLine;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getCycle() {
+        return cycle;
+    }
+
     public long makeProgress() {
         return --this.requiredExecutionTime;
     }
@@ -24,7 +38,9 @@ public class Process {
     @Override
     public String toString() {
         return "Process{" +
-                "requiredExecutionTime=" + requiredExecutionTime +
+                "name=" + name +
+                ", cycle=" + cycle +
+                ", requiredExecutionTime=" + requiredExecutionTime +
                 "ms, deadLine=" + deadLine +
                 "ms}";
     }
