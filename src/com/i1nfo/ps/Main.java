@@ -22,10 +22,12 @@ public class Main {
         // Execute scheduler
         for (int i = 0; i < 100; ++i) {
             boolean progressing = scheduler.run();
+            System.out.printf("Current time: %sms ", i);
+            List<Process> processes = scheduler.getProcesses();
             if (progressing) {
-                List<Process> processes = scheduler.getProcesses();
-                System.out.printf("Current time: %s", scheduler.getCurrentTime());
-                System.out.println(processes);
+                System.out.printf("[P] %s\n", processes);
+            } else {
+                System.out.printf("[I] %s\n", processes);
             }
         }
     }

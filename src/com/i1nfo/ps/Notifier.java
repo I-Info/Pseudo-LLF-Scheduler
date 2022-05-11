@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface Notifier {
 
-    public List<Process> newProcesses(long currentTime);
+    List<Process> newProcesses(long currentTime);
 
 }

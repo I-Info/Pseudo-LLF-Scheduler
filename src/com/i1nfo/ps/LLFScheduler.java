@@ -27,7 +27,7 @@ public class LLFScheduler implements Scheduler {
     }
 
     private long getLaxity(Process process) {
-        return currentTime - process.getDeadLine() - process.getRequiredExecutionTime();
+        return process.getDeadLine() - currentTime - process.getRequiredExecutionTime();
     }
 
     @Override

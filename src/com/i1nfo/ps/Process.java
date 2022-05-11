@@ -1,9 +1,8 @@
 package com.i1nfo.ps;
 
 public class Process {
-    private long requiredExecutionTime;
-
     private final long deadLine;
+    private long requiredExecutionTime;
 
     public Process(long requiredTime, long deadLine) {
         this.requiredExecutionTime = requiredTime;
@@ -26,7 +25,7 @@ public class Process {
     public String toString() {
         return "Process{" +
                 "requiredExecutionTime=" + requiredExecutionTime +
-                ", deadLine=" + deadLine +
-                '}';
+                "ms, deadLine=" + deadLine +
+                "ms}";
     }
 }
