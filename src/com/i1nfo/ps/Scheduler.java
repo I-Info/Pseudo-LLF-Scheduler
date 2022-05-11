@@ -1,7 +1,13 @@
 package com.i1nfo.ps;
 
+import java.util.List;
+
 public interface Scheduler {
 
-    public void run();
+    boolean run();
+
+    List<Process> getProcesses();
+
+    long getCurrentTime();
 
 }

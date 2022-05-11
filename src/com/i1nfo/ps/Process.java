@@ -5,7 +5,7 @@ public class Process {
 
     private final long deadLine;
 
-    public Process(int requiredTime, long deadLine) {
+    public Process(long requiredTime, long deadLine) {
         this.requiredExecutionTime = requiredTime;
         this.deadLine = deadLine;
     }
@@ -20,5 +20,13 @@ public class Process {
 
     public long makeProgress() {
         return --this.requiredExecutionTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Process{" +
+                "requiredExecutionTime=" + requiredExecutionTime +
+                ", deadLine=" + deadLine +
+                '}';
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LLFScheduler implements Scheduler {
 
-    private final Notifier notifier;
+    private final Notifier notifier; // New process notifier
 
     private final List<Process> processes; // Process list
 
@@ -17,39 +17,51 @@ public class LLFScheduler implements Scheduler {
         this.currentTime = 0;
     }
 
+    @Override
+    public List<Process> getProcesses() {
+        return processes;
+    }
+
+    public long getCurrentTime() {
+        return currentTime;
+    }
+
     private long getLaxity(Process process) {
         return currentTime - process.getDeadLine() - process.getRequiredExecutionTime();
     }
 
     @Override
-    public void run() {
-        // New processes
-        List<Process> newProcesses = notifier.newProcesses(currentTime);
-        if (newProcesses != null)
-            processes.addAll(newProcesses);
-
-        // Select the next process
+    public boolean run() {
+        // Select the current process
         long minLaxity = Long.MAX_VALUE;
-        Process nextProcess = null; // The next process to be progressed.
+        Process currentProcess = null;
         // Find out min laxity process
         for (Process process : processes) {
             long laxity = getLaxity(process);
             if (laxity < minLaxity) {
                 minLaxity = laxity;
-                nextProcess = process;
+                currentProcess = process;
             }
         }
 
         // If no process, do nothing
-        if (nextProcess != null) {
-            long remainTime = nextProcess.makeProgress();
+        if (currentProcess != null) {
+            long remainTime = currentProcess.makeProgress();
             // Process finished, remove from process list
             if (remainTime == 0) {
-                processes.remove(nextProcess);
+                processes.remove(currentProcess);
             }
         }
 
-        // tick
+        // New processes
+        List<Process> newProcesses = notifier.newProcesses(currentTime);
+        if (newProcesses != null)
+            processes.addAll(newProcesses);
+
+        // Tick
         ++currentTime;
+
+        // Return progress status
+        return currentProcess != null;
     }
 }
