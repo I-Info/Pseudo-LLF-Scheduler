@@ -23,11 +23,11 @@ public class Main {
 
         // Execute scheduler
         for (int i = 0; i < 100; ++i) {
-            boolean progressing = scheduler.run();
+            Process current = scheduler.run();
             System.out.printf("Current time: %sms ", i);
             List<Process> processes = scheduler.getProcesses();
-            if (progressing) {
-                System.out.printf("[P] %s\n", processes);
+            if (current != null) {
+                System.out.printf("[P] %s %s\n", current.getName(), processes);
             } else {
                 System.out.printf("[I] %s\n", processes);
             }
