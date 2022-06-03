@@ -22,14 +22,13 @@ public class Main {
         });
 
         // Execute scheduler
-        for (int i = 0; i < 100; ++i) {
-            Process current = scheduler.run();
+        for (long i = 0; i < 100; ++i) {
+            Process current = scheduler.run(i);
             System.out.printf("Current time: %sms ", i);
-            List<Process> processes = scheduler.getProcesses();
             if (current != null) {
-                System.out.printf("[P] %s %s\n", current.getName(), processes);
+                System.out.printf("[P] %s Laxity: %s\n", current, Scheduler.getLaxity(current, i));
             } else {
-                System.out.printf("[I] %s\n", processes);
+                System.out.print("[I]\n");
             }
         }
     }

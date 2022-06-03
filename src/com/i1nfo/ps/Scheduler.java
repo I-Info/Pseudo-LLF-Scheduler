@@ -9,14 +9,11 @@ public class Scheduler {
 
     private final List<Process> processes; // Process list
 
-    private long currentTime;
-
     private Process currentProcess;
 
     Scheduler(Notifier notifier) {
         this.notifier = notifier;
         this.processes = new LinkedList<>();
-        this.currentTime = 0;
         this.currentProcess = null;
     }
 
@@ -24,19 +21,11 @@ public class Scheduler {
         return processes;
     }
 
-    public long getCurrentTime() {
-        return currentTime;
-    }
-
-    public Process getCurrentProcess() {
-        return currentProcess;
-    }
-
-    private long getLaxity(Process process) {
+    public static long getLaxity(Process process, long currentTime) {
         return process.getDeadLine() - currentTime - process.getRequiredExecutionTime();
     }
 
-    public Process run() {
+    public Process run(long currentTime) {
         // New processes
         List<Process> newProcesses = notifier.newProcesses(currentTime);
         if (newProcesses != null)
@@ -48,7 +37,7 @@ public class Scheduler {
             Process currentProcess = null;
             // Find out min laxity process
             for (Process process : processes) {
-                long laxity = getLaxity(process);
+                long laxity = getLaxity(process, currentTime);
                 if (laxity < minLaxity) {
                     minLaxity = laxity;
                     currentProcess = process;
@@ -58,7 +47,7 @@ public class Scheduler {
         } else {
             // Select 0 laxity process
             for (Process process : processes) {
-                long laxity = getLaxity(process);
+                long laxity = getLaxity(process, currentTime);
                 if (laxity == 0) {
                     currentProcess = process;
                 }
@@ -74,7 +63,7 @@ public class Scheduler {
                 processes.remove(currentProcess);
                 currentProcess = null;
             }
-            ++currentTime;
+
             return process;
         }
 
