@@ -68,7 +68,6 @@ public class Scheduler {
         }
 
         // Tick
-        ++currentTime;
         return null;
     }
 }
