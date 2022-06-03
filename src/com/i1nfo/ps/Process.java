@@ -1,38 +1,33 @@
 package com.i1nfo.ps;
 
 public class Process {
-    private final long deadLine;
-    private long requiredExecutionTime;
+    public final long deadLine;
+    private long remain;
 
-    private final String name;
+    public final String name;
 
-    private final int cycle;
+    public final int cycle;
 
-    public Process(String name, int cycle, long requiredTime, long deadLine) {
+    public final long requiredExecutionTime;
+
+    public Process(String name, int cycle, long executionTime, long deadLine) {
         this.name = name;
         this.cycle = cycle;
-        this.requiredExecutionTime = requiredTime;
+        this.remain = executionTime;
         this.deadLine = deadLine;
+        this.requiredExecutionTime = executionTime;
     }
 
-    public long getRequiredExecutionTime() {
-        return requiredExecutionTime;
-    }
-
-    public long getDeadLine() {
-        return deadLine;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCycle() {
-        return cycle;
+    public long getRemain() {
+        return remain;
     }
 
     public long makeProgress() {
-        return --this.requiredExecutionTime;
+        return --this.remain;
+    }
+
+    public long getExecution() {
+        return requiredExecutionTime - remain;
     }
 
     @Override
@@ -40,7 +35,7 @@ public class Process {
         return "Process{" +
                 "name=" + name +
                 ", cycle=" + cycle +
-                ", requiredExecutionTime=" + requiredExecutionTime +
+                ", requiredExecutionTime=" + remain +
                 "ms, deadLine=" + deadLine +
                 "ms}";
     }

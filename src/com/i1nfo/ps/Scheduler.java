@@ -22,7 +22,7 @@ public class Scheduler {
     }
 
     public static long getLaxity(Process process, long currentTime) {
-        return process.getDeadLine() - currentTime - process.getRequiredExecutionTime();
+        return process.deadLine - currentTime - process.getRemain();
     }
 
     public Process run(long currentTime) {

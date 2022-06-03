@@ -24,9 +24,9 @@ public class Main {
         // Execute scheduler
         for (long i = 0; i < 100; ++i) {
             Process current = scheduler.run(i);
-            System.out.printf("Time: %s ", i);
+            System.out.printf("Time:%sms ", i);
             if (current != null) {
-                System.out.printf("[P] %s Cycle:%s Remain:%s DDL:%s Laxity:%s\n", current.getName(), current.getCycle(), current.getRequiredExecutionTime(), current.getDeadLine(), Scheduler.getLaxity(current, i));
+                System.out.printf("[P] %s Cycle:%s Execution:%sms Remain:%sms DDL:%sms Laxity:%s\n", current.name, current.cycle, current.getExecution(), current.getRemain(), current.deadLine, Scheduler.getLaxity(current, i));
             } else {
                 System.out.print("[I]\n");
             }
